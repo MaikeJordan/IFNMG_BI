@@ -1,0 +1,80 @@
+<Schema name="IFNMGDespesas">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Acao">
+    <Hierarchy name="Acao" visible="true" hasAll="true" primaryKey="acao_pk">
+      <Table name="dim_acao" schema="public">
+      </Table>
+      <Level name="Acao" visible="true" column="acao" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="ElementoDespesa">
+    <Hierarchy name="ElementoDespesa" visible="true" hasAll="true" primaryKey="pk_elementodespesa">
+      <Table name="dim_elementodespesa" schema="public">
+      </Table>
+      <Level name="Elemento Despesa" visible="true" column="elementodespesa" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Funcao">
+    <Hierarchy name="Funcao" visible="true" hasAll="true" primaryKey="funcao_pk">
+      <Table name="dim_funcao" schema="public">
+      </Table>
+      <Level name="Funcao" visible="true" column="funcao" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="GrupoDespesa">
+    <Hierarchy name="GrupoDespesa" visible="true" hasAll="true" primaryKey="grupodespesa_pk">
+      <Table name="dim_grupodespesa" schema="public">
+      </Table>
+      <Level name="GrupoDespesa" visible="true" column="grupodespesa" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Programa">
+    <Hierarchy name="Programa" visible="true" hasAll="true" primaryKey="programa_pk">
+      <Table name="dim_programa" schema="public">
+      </Table>
+      <Level name="Programa" visible="true" column="programa" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="SubFuncao">
+    <Hierarchy name="SubFuncao" visible="true" hasAll="true" primaryKey="subfuncao_pk">
+      <Table name="dim_subfuncao" schema="public">
+      </Table>
+      <Level name="SubFuncao" visible="true" column="subfuncao" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="UnidadeGestora">
+    <Hierarchy name="UnidadeGestora" visible="true" hasAll="true" primaryKey="unidadegestora_pk">
+      <Table name="dim_unidadegestora" schema="public">
+      </Table>
+      <Level name="UnidadeGestora" visible="true" column="unidadegestora" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Despesas" visible="true" cache="true" enabled="true">
+    <Table name="fato_despesa" schema="public">
+    </Table>
+    <DimensionUsage source="Acao" name="Acao" visible="true" foreignKey="acao_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="ElementoDespesa" name="ElementoDespesa" visible="true" foreignKey="pk_elementodespesa" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Funcao" name="Funcao" visible="true" foreignKey="funcao_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="GrupoDespesa" name="GrupoDespesa" visible="true" foreignKey="grupodespesa_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Programa" name="Programa" visible="true" foreignKey="programa_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="SubFuncao" name="SubFuncao" visible="true" foreignKey="subfuncao_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="UnidadeGestora" name="UnidadeGestora" visible="true" foreignKey="unidadegestora_pk" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Valor" column="valor" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Documento" column="numerodocumento" datatype="String" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
