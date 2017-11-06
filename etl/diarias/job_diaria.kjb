@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>Geral</name>
+  <name>job_diaria</name>
   <description />
   <extended_description />
   <job_version />
   <directory>/</directory>
   <created_user>-</created_user>
-  <created_date>2017/10/24 00:40:52.650</created_date>
+  <created_date>2017/11/04 11:29:50.638</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017/10/24 00:40:52.650</modified_date>
+  <modified_date>2017/11/04 11:29:50.638</modified_date>
   <parameters>
     </parameters>
   <slaveservers>
@@ -303,16 +303,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>160</xloc>
-      <yloc>64</yloc>
+      <xloc>96</xloc>
+      <yloc>96</yloc>
     </entry>
     <entry>
-      <name>DataStaging</name>
+      <name>DataStaging_Diarias</name>
       <description />
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id />
-      <filename>${Internal.Entry.Current.Directory}/DataStaging_GastosDiretos.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/DataStaging_Diarias.ktr</filename>
       <transname />
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -339,22 +339,11 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>544</xloc>
-      <yloc>64</yloc>
+      <xloc>400</xloc>
+      <yloc>96</yloc>
     </entry>
     <entry>
-      <name>Abort job</name>
-      <description />
-      <type>ABORT</type>
-      <message />
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>416</xloc>
-      <yloc>256</yloc>
-    </entry>
-    <entry>
-      <name>dimAcao</name>
+      <name>dim_acao</name>
       <description />
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -386,83 +375,22 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>64</yloc>
+      <xloc>560</xloc>
+      <yloc>96</yloc>
     </entry>
     <entry>
-      <name>dimElementoDespesa</name>
+      <name>Abort job</name>
       <description />
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id />
-      <filename>${Internal.Entry.Current.Directory}/dim_elementodespesa.ktr</filename>
-      <transname />
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name />
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
+      <type>ABORT</type>
+      <message />
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>160</yloc>
+      <xloc>400</xloc>
+      <yloc>224</yloc>
     </entry>
     <entry>
-      <name>dimFavorecido</name>
-      <description />
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id />
-      <filename>${Internal.Entry.Current.Directory}/dim_favorecido.ktr</filename>
-      <transname />
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name />
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>256</yloc>
-    </entry>
-    <entry>
-      <name>dimFuncao</name>
+      <name>dim_funcao</name>
       <description />
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -494,47 +422,11 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>352</yloc>
+      <xloc>752</xloc>
+      <yloc>96</yloc>
     </entry>
     <entry>
-      <name>dimGrupodespesa</name>
-      <description />
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id />
-      <filename>${Internal.Entry.Current.Directory}/dim_grupodespesa.ktr</filename>
-      <transname />
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name />
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>464</yloc>
-    </entry>
-    <entry>
-      <name>dimPrograma</name>
+      <name>dim_programa</name>
       <description />
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -566,11 +458,11 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>576</xloc>
-      <yloc>464</yloc>
+      <xloc>752</xloc>
+      <yloc>208</yloc>
     </entry>
     <entry>
-      <name>dimSubfuncao</name>
+      <name>dim_subfuncao</name>
       <description />
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -602,11 +494,11 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>464</yloc>
+      <xloc>752</xloc>
+      <yloc>352</yloc>
     </entry>
     <entry>
-      <name>dimUnidadegestora</name>
+      <name>dim_unidadegestora</name>
       <description />
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -638,26 +530,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>352</xloc>
-      <yloc>464</yloc>
+      <xloc>560</xloc>
+      <yloc>352</yloc>
     </entry>
     <entry>
-      <name>Success</name>
-      <description />
-      <type>SUCCESS</type>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>160</xloc>
-      <yloc>256</yloc>
-    </entry>
-    <entry>
-      <name>FatoDespesa</name>
+      <name>fato_diaria</name>
       <description />
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id />
-      <filename>${Internal.Entry.Current.Directory}/fato_despesa.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/fato_diaria.ktr</filename>
       <transname />
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -684,23 +566,24 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>160</xloc>
-      <yloc>464</yloc>
+      <xloc>400</xloc>
+      <yloc>352</yloc>
+    </entry>
+    <entry>
+      <name>Success</name>
+      <description />
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>176</xloc>
+      <yloc>352</yloc>
     </entry>
   </entries>
   <hops>
     <hop>
-      <from>DataStaging</from>
-      <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>DataStaging</from>
-      <to>dimAcao</to>
+      <from>DataStaging_Diarias</from>
+      <to>dim_acao</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -708,7 +591,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimAcao</from>
+      <from>DataStaging_Diarias</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -717,8 +600,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimAcao</from>
-      <to>dimElementoDespesa</to>
+      <from>dim_acao</from>
+      <to>dim_funcao</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -726,7 +609,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimElementoDespesa</from>
+      <from>dim_acao</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -735,17 +618,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimFavorecido</from>
-      <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>dimElementoDespesa</from>
-      <to>dimFavorecido</to>
+      <from>dim_funcao</from>
+      <to>dim_programa</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -753,16 +627,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimFavorecido</from>
-      <to>dimFuncao</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>dimFuncao</from>
+      <from>dim_funcao</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -771,8 +636,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimFuncao</from>
-      <to>dimGrupodespesa</to>
+      <from>dim_programa</from>
+      <to>dim_subfuncao</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -780,7 +645,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimGrupodespesa</from>
+      <from>dim_programa</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -789,8 +654,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimGrupodespesa</from>
-      <to>dimPrograma</to>
+      <from>dim_subfuncao</from>
+      <to>dim_unidadegestora</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -798,7 +663,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimPrograma</from>
+      <from>dim_subfuncao</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -807,8 +672,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimPrograma</from>
-      <to>dimSubfuncao</to>
+      <from>dim_unidadegestora</from>
+      <to>fato_diaria</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -816,7 +681,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimSubfuncao</from>
+      <from>dim_unidadegestora</from>
       <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -825,43 +690,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>dimSubfuncao</from>
-      <to>dimUnidadegestora</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>dimUnidadegestora</from>
-      <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>dimUnidadegestora</from>
-      <to>FatoDespesa</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>FatoDespesa</from>
-      <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>FatoDespesa</from>
+      <from>fato_diaria</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -870,8 +699,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
+      <from>fato_diaria</from>
+      <to>Abort job</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>START</from>
-      <to>DataStaging</to>
+      <to>DataStaging_Diarias</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

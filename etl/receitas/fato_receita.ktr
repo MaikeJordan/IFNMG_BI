@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>DataStaging_Receitas</name>
+    <name>fato_receita</name>
     <description />
     <extended_description />
     <trans_version />
@@ -427,9 +427,9 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2017/11/01 15:36:11.561</created_date>
+    <created_date>2017/11/03 21:11:46.478</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2017/11/01 15:36:11.561</modified_date>
+    <modified_date>2017/11/03 21:11:46.478</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -456,24 +456,64 @@
   </connection>
   <order>
     <hop>
-      <from>Filter rows</from>
+      <from>Database lookup - categoriaeconomica</from>
+      <to>Database lookup - origem</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup - especie</from>
+      <to>Database lookup - rubrica</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup - origem</from>
+      <to>Database lookup - especie</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup - Tempo</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup - UnidadeGestora</from>
+      <to>Database lookup - categoriaeconomica</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Split field to rows</from>
-      <to>Filter rows</to>
+      <from>Table input</from>
+      <to>Database lookup - UnidadeGestora</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Text file input</from>
-      <to>Split field to rows</to>
+      <from>Database lookup - rubrica</from>
+      <to>Database lookup - alinea</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup - exercicio</from>
+      <to>Database lookup - Tempo</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup - alinea</from>
+      <to>Database lookup - subalinea</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup - subalinea</from>
+      <to>Database lookup - exercicio</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
+    <name>Database lookup - Tempo</name>
+    <type>DBLookup</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -482,30 +522,29 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <send_true_to />
-    <send_false_to />
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>Nome_Unidade_Gestora</leftvalue>
-            <function>CONTAINS</function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>INST.FED.DE EDUC.,CIENC.E TEC.DO NORTE DE MG</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask />
-            </value>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_tempo</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>exercicio</name>
+        <field>year_number</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>id</name>
+        <rename>devolvidoid</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -514,14 +553,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>432</xloc>
-      <yloc>160</yloc>
+      <xloc>464</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Split field to rows</name>
-    <type>SplitFieldToRows3</type>
+    <name>Database lookup - UnidadeGestora</name>
+    <type>DBLookup</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -530,13 +569,29 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <splitfield>Nome_Unidade_Gestora</splitfield>
-    <delimiter>;</delimiter>
-    <newfield>dados</newfield>
-    <rownum>N</rownum>
-    <rownum_field />
-    <resetrownumber>Y</resetrownumber>
-    <delimiter_is_regex>Y</delimiter_is_regex>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_unidadegestora</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>nomeunidadegestora</name>
+        <field>unidadegestora</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>unidadegestora_pk</name>
+        <rename>unidadegestora_pk</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -545,8 +600,445 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
-      <yloc>160</yloc>
+      <xloc>448</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup - alinea</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_alinea</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>alinea</name>
+        <field>alinea</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>alinea_pk</name>
+        <rename>alinea_pk</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup - categoriaeconomica</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_categoriaeconomica</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>categoriaeconomica</name>
+        <field>categoriaeconomica</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>categoriaeconomica_pk</name>
+        <rename>categoriaeconomica_pk</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup - especie</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_especie</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>especie</name>
+        <field>especie</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>especie_pk</name>
+        <rename>especie_pk</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup - exercicio</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_exercicio</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>exercicio</name>
+        <field>exercicio</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>exercicio_pk</name>
+        <rename>exercicio_pk</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup - origem</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_origem</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>origem</name>
+        <field>origem</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>origem_pk</name>
+        <rename>origem_pk</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup - rubrica</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_rubrica</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>rubrica</name>
+        <field>rubrica</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>rubrica_pk</name>
+        <rename>rubrica_pk</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup - subalinea</name>
+    <type>DBLookup</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>IFNMG</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_subalinea</table>
+      <orderby />
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>subalinea</name>
+        <field>subalinea</field>
+        <condition>=</condition>
+        <name2 />
+      </key>
+      <value>
+        <name>subalinea_pk</name>
+        <rename>subalinea_pk</rename>
+        <default />
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <name>valorprevisto</name>
+      </field>
+      <field>
+        <name>valorlancado</name>
+      </field>
+      <field>
+        <name>valorrealizado</name>
+      </field>
+      <field>
+        <name>unidadegestora_pk</name>
+      </field>
+      <field>
+        <name>categoriaeconomica_pk</name>
+      </field>
+      <field>
+        <name>origem_pk</name>
+      </field>
+      <field>
+        <name>especie_pk</name>
+      </field>
+      <field>
+        <name>rubrica_pk</name>
+      </field>
+      <field>
+        <name>alinea_pk</name>
+      </field>
+      <field>
+        <name>exercicio_pk</name>
+      </field>
+      <field>
+        <name>devolvidoid</name>
+      </field>
+      <field>
+        <name>subalinea_pk</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>IFNMG</connection>
+    <sql>SELECT 
+nomeunidadegestora, 
+categoriaeconomica, 
+origem, 
+especie, 
+rubrica, 
+alinea, 
+subalinea, 
+valorprevisto, 
+valorlancado, 
+valorrealizado, 
+percentualrealizado, 
+exercicio
+FROM public.receita;
+</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -563,11 +1055,11 @@
     </partitioning>
     <connection>IFNMG</connection>
     <schema>public</schema>
-    <table>receita</table>
+    <table>fato_receita</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
+    <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field />
@@ -576,72 +1068,52 @@
     <tablename_in_field>N</tablename_in_field>
     <tablename_field />
     <tablename_in_table>Y</tablename_in_table>
-    <return_keys>Y</return_keys>
-    <return_field>receita_pk</return_field>
+    <return_keys>N</return_keys>
+    <return_field />
     <fields>
       <field>
-        <column_name>codigoorgaosuperior</column_name>
-        <stream_name>Código_Órgão_Superior</stream_name>
-      </field>
-      <field>
-        <column_name>nomeorgaosuperior</column_name>
-        <stream_name>Nome_Órgão_Superior</stream_name>
-      </field>
-      <field>
-        <column_name>codigoorgaosubordinado</column_name>
-        <stream_name>Código_Órgão_Subordinado</stream_name>
-      </field>
-      <field>
-        <column_name>nomeorgaosubordinado</column_name>
-        <stream_name>Nome_Órgão_Subordinado</stream_name>
-      </field>
-      <field>
-        <column_name>codigounidadegestora</column_name>
-        <stream_name>Código_Unidade_Gestora</stream_name>
-      </field>
-      <field>
-        <column_name>nomeunidadegestora</column_name>
-        <stream_name>Nome_Unidade_Gestora</stream_name>
-      </field>
-      <field>
-        <column_name>categoriaeconomica</column_name>
-        <stream_name>Categoria_Econômica</stream_name>
-      </field>
-      <field>
-        <column_name>origem</column_name>
-        <stream_name>Origem</stream_name>
-      </field>
-      <field>
-        <column_name>especie</column_name>
-        <stream_name>Espécie</stream_name>
-      </field>
-      <field>
-        <column_name>rubrica</column_name>
-        <stream_name>Rubrica</stream_name>
-      </field>
-      <field>
-        <column_name>alinea</column_name>
-        <stream_name>Alínea</stream_name>
-      </field>
-      <field>
-        <column_name>subalinea</column_name>
-        <stream_name>Subalínea</stream_name>
-      </field>
-      <field>
         <column_name>valorprevisto</column_name>
-        <stream_name>Valor_Previsto</stream_name>
+        <stream_name>valorprevisto</stream_name>
       </field>
       <field>
         <column_name>valorlancado</column_name>
-        <stream_name>Valor_Lançado</stream_name>
+        <stream_name>valorlancado</stream_name>
       </field>
       <field>
         <column_name>valorrealizado</column_name>
-        <stream_name>Valor_Realizado</stream_name>
+        <stream_name>valorrealizado</stream_name>
       </field>
       <field>
-        <column_name>exercicio</column_name>
-        <stream_name>Exercício</stream_name>
+        <column_name>unidadegestora_pk</column_name>
+        <stream_name>unidadegestora_pk</stream_name>
+      </field>
+      <field>
+        <column_name>categoriaeconomica_pk</column_name>
+        <stream_name>categoriaeconomica_pk</stream_name>
+      </field>
+      <field>
+        <column_name>origem_pk</column_name>
+        <stream_name>origem_pk</stream_name>
+      </field>
+      <field>
+        <column_name>especie_pk</column_name>
+        <stream_name>especie_pk</stream_name>
+      </field>
+      <field>
+        <column_name>rubrica_pk</column_name>
+        <stream_name>rubrica_pk</stream_name>
+      </field>
+      <field>
+        <column_name>alinea_pk</column_name>
+        <stream_name>alinea_pk</stream_name>
+      </field>
+      <field>
+        <column_name>exercicio_pk</column_name>
+        <stream_name>devolvidoid</stream_name>
+      </field>
+      <field>
+        <column_name>subalinea_pk</column_name>
+        <stream_name>subalinea_pk</stream_name>
       </field>
     </fields>
     <cluster_schema />
@@ -652,352 +1124,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Text file input</name>
-    <type>TextFileInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <accept_filenames>N</accept_filenames>
-    <passing_through_fields>N</passing_through_fields>
-    <accept_field />
-    <accept_stepname />
-    <separator>	</separator>
-    <enclosure>"</enclosure>
-    <enclosure_breaks>N</enclosure_breaks>
-    <escapechar />
-    <header>Y</header>
-    <nr_headerlines>1</nr_headerlines>
-    <footer>N</footer>
-    <nr_footerlines>1</nr_footerlines>
-    <line_wrapped>N</line_wrapped>
-    <nr_wraps>1</nr_wraps>
-    <layout_paged>N</layout_paged>
-    <nr_lines_per_page>80</nr_lines_per_page>
-    <nr_lines_doc_header>0</nr_lines_doc_header>
-    <noempty>Y</noempty>
-    <include>N</include>
-    <include_field />
-    <rownum>N</rownum>
-    <rownumByFile>N</rownumByFile>
-    <rownum_field />
-    <format>mixed</format>
-    <encoding />
-    <length>Characters</length>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <file>
-      <name>C:\Users\cliente\Desktop\Dados\20170127_Receita.zip</name>
-      <filemask />
-      <exclude_filemask />
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <type>CSV</type>
-      <compression>Zip</compression>
-    </file>
-    <filters>
-    </filters>
-    <fields>
-      <field>
-        <name>Código_Órgão_Superior</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Nome_Órgão_Superior</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>45</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Código_Órgão_Subordinado</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Nome_Órgão_Subordinado</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>45</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Código_Unidade_Gestora</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Nome_Unidade_Gestora</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>45</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Categoria_Econômica</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>19</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Origem</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>43</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Espécie</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>45</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Rubrica</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>45</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Alínea</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>45</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Subalínea</name>
-        <type>String</type>
-        <format />
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>45</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Valor_Previsto</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>13</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Valor_Lançado</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>4</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Valor_Realizado</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>12</length>
-        <precision>2</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Percentual_Realizado</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
-        <ifnull />
-        <position>-1</position>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-      <field>
-        <name>Exercício</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>R$</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <nullif>-</nullif>
-        <ifnull />
-        <position>-1</position>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-      </field>
-    </fields>
-    <limit>0</limit>
-    <error_ignored>N</error_ignored>
-    <skip_bad_files>N</skip_bad_files>
-    <file_error_field />
-    <file_error_message_field />
-    <error_line_skipped>N</error_line_skipped>
-    <error_count_field />
-    <error_fields_field />
-    <error_text_field />
-    <bad_line_files_destination_directory />
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory />
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory />
-    <line_number_files_extension>line</line_number_files_extension>
-    <date_format_lenient>Y</date_format_lenient>
-    <date_format_locale>pt_BR</date_format_locale>
-    <shortFileFieldName />
-    <pathFieldName />
-    <hiddenFieldName />
-    <lastModificationTimeFieldName />
-    <uriNameFieldName />
-    <rootUriNameFieldName />
-    <extensionFieldName />
-    <sizeFieldName />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>96</xloc>
-      <yloc>160</yloc>
+      <xloc>944</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

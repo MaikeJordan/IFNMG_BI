@@ -500,6 +500,11 @@
     </hop>
     <hop>
       <from>Filter rows</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
@@ -515,7 +520,7 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <send_true_to>Table output</send_true_to>
+    <send_true_to>Select values</send_true_to>
     <send_false_to />
     <compare>
       <condition>
@@ -547,7 +552,126 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>512</xloc>
+      <xloc>496</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <name>Código_Órgão_Superior	</name>
+      </field>
+      <field>
+        <name>Nome_Órgão_Superior	</name>
+      </field>
+      <field>
+        <name>Código_Órgão	</name>
+      </field>
+      <field>
+        <name>Nome_Órgao	</name>
+      </field>
+      <field>
+        <name>Código_Unidade_Gestora	</name>
+      </field>
+      <field>
+        <name>Nome_Unidade_Gestora	</name>
+      </field>
+      <field>
+        <name>Código_Grupo_Despesa	</name>
+      </field>
+      <field>
+        <name>Nome_Grupo_Despesa	</name>
+      </field>
+      <field>
+        <name>Código_Elemento_Despesa	</name>
+      </field>
+      <field>
+        <name>Nome_Elemento_Despesa	</name>
+      </field>
+      <field>
+        <name>Código_Função	</name>
+      </field>
+      <field>
+        <name>Nome_Função	</name>
+      </field>
+      <field>
+        <name>Código_Subfunção	</name>
+      </field>
+      <field>
+        <name>Nome_Subfunção	</name>
+      </field>
+      <field>
+        <name>Código_Programa	</name>
+      </field>
+      <field>
+        <name>Nome_Programa	</name>
+      </field>
+      <field>
+        <name>Código_Ação	</name>
+      </field>
+      <field>
+        <name>Nome_Ação	</name>
+      </field>
+      <field>
+        <name>Linguagem_Cidadã	</name>
+      </field>
+      <field>
+        <name>Código_Favorecido	</name>
+      </field>
+      <field>
+        <name>Nome_Favorecido	</name>
+      </field>
+      <field>
+        <name>Número_Documento	</name>
+      </field>
+      <field>
+        <name>Gestão_Pagamento	</name>
+      </field>
+      <field>
+        <name>Data_Pagamento	</name>
+      </field>
+      <field>
+        <name>Valor</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>Data_Pagamento	</name>
+        <rename>data</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>dd/MM/yyyy</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale />
+        <date_format_timezone />
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding />
+        <decimal_symbol />
+        <grouping_symbol />
+        <currency_symbol />
+        <storage_type />
+      </meta>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
@@ -578,7 +702,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
+      <xloc>304</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
@@ -702,7 +826,7 @@
       </field>
       <field>
         <column_name>datapagamento</column_name>
-        <stream_name>Data_Pagamento	</stream_name>
+        <stream_name>data</stream_name>
       </field>
       <field>
         <column_name>valor</column_name>
@@ -717,7 +841,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
+      <xloc>816</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
@@ -758,65 +882,65 @@
     <rownum_field />
     <format>mixed</format>
     <encoding>windows-1252</encoding>
-    <length />
+    <length>Characters</length>
     <add_to_result_filenames>Y</add_to_result_filenames>
     <file>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201101_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201101_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201102_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201102_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201103_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201103_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201104_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201104_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201105_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201105_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201106_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201106_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201107_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201107_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201108_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201108_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201109_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201109_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201110_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201110_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201111_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201111_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
-      <name>C:\Users\MAIKE\Desktop\Dados\2011\201112_GastosDiretos.zip</name>
+      <name>C:\Users\cliente\Desktop\Dados\2011\201112_GastosDiretos.zip</name>
       <filemask />
       <exclude_filemask />
       <file_required>N</file_required>

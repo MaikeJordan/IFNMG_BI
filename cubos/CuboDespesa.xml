@@ -55,9 +55,9 @@
       </Level>
     </Hierarchy>
   </Dimension>
-  <Dimension type="TimeDimension" visible="true" name="Data">
-    <Hierarchy name="Padrao" visible="true" hasAll="true">
-      <Table name="dim_tempo" schema="public" alias="">
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="Data">
+    <Hierarchy name="Padrao" visible="true" hasAll="true" primaryKey="id">
+      <Table name="dim_tempo" schema="public">
       </Table>
       <Level name="Dia" visible="true" column="day_of_month_number" type="Numeric" internalType="int" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
       </Level>
@@ -67,7 +67,63 @@
       </Level>
     </Hierarchy>
   </Dimension>
-  <Cube name="Despesas" visible="true" cache="true" enabled="true">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Alinea">
+    <Hierarchy name="Alinea" visible="true" hasAll="true" primaryKey="alinea_pk">
+      <Table name="dim_alinea" schema="public">
+      </Table>
+      <Level name="Alinea" visible="true" column="alinea" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="CategoriaEconomica">
+    <Hierarchy name="Categoria Economica" visible="true" hasAll="true" primaryKey="categoriaeconomica_pk">
+      <Table name="dim_categoriaeconomica" schema="public">
+      </Table>
+      <Level name="Categoria Economica" visible="true" column="categoriaeconomica" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Especie">
+    <Hierarchy name="Especie" visible="true" hasAll="true" primaryKey="especie_pk">
+      <Table name="dim_especie" schema="public">
+      </Table>
+      <Level name="Especie" visible="true" column="especie" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="Exercicio">
+    <Hierarchy name="Exercicio" visible="true" hasAll="true" primaryKey="id">
+      <Table name="dim_tempo" schema="public">
+      </Table>
+      <Level name="Exercicio" visible="true" column="year_number" type="Numeric" internalType="int" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Origem">
+    <Hierarchy name="Origem" visible="true" hasAll="true" primaryKey="origem_pk">
+      <Table name="dim_origem" schema="public">
+      </Table>
+      <Level name="Origem" visible="true" column="origem" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Rubrica">
+    <Hierarchy name="Rubrica" visible="true" hasAll="true" primaryKey="rubrica_pk">
+      <Table name="dim_rubrica" schema="public">
+      </Table>
+      <Level name="Rubrica" visible="true" column="rubrica" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="SubAlinea">
+    <Hierarchy name="SubAlinea" visible="true" hasAll="true" primaryKey="subalinea_pk">
+      <Table name="dim_subalinea" schema="public">
+      </Table>
+      <Level name="SubAlinea" visible="true" column="subalinea" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Gastos Diretos" visible="true" cache="true" enabled="true">
     <Table name="fato_despesa" schema="public">
     </Table>
     <DimensionUsage source="Acao" name="Acao" visible="true" foreignKey="acao_pk" highCardinality="false">
@@ -84,11 +140,55 @@
     </DimensionUsage>
     <DimensionUsage source="UnidadeGestora" name="UnidadeGestora" visible="true" foreignKey="unidadegestora_pk" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Data" name="Data" visible="true" foreignKey="datapagamento">
+    <DimensionUsage source="Data" name="Data" visible="true" foreignKey="datapagamento" highCardinality="false">
     </DimensionUsage>
     <Measure name="Valor" column="valor" datatype="Numeric" aggregator="sum" visible="true">
     </Measure>
     <Measure name="Documento" column="numerodocumento" datatype="String" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Receitas" visible="true" cache="true" enabled="true">
+    <Table name="fato_receita" schema="public">
+    </Table>
+    <DimensionUsage source="Alinea" name="Alinea" visible="true" foreignKey="alinea_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="CategoriaEconomica" name="CategoriaEconomica" visible="true" foreignKey="categoriaeconomica_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Especie" name="Especie" visible="true" foreignKey="especie_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Exercicio" name="Exercicio" visible="true" foreignKey="exercicio_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Origem" name="Origem" visible="true" foreignKey="origem_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Rubrica" name="Rubrica" visible="true" foreignKey="rubrica_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="SubAlinea" name="SubAlinea" visible="true" foreignKey="subalinea_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="UnidadeGestora" name="UnidadeGestora" visible="true" foreignKey="unidadegestora_pk" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Valor Previsto" column="valorprevisto" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Valor Lancado" column="valorlancado" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Valor Realizado" column="valorrealizado" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Diarias" visible="true" cache="true" enabled="true">
+    <Table name="fato_diaria" schema="public">
+    </Table>
+    <DimensionUsage source="Acao" name="Acao" visible="true" foreignKey="acao_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Funcao" name="Funcao" visible="true" foreignKey="funcao_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Programa" name="Programa" visible="true" foreignKey="programa_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="SubFuncao" name="SubFuncao" visible="true" foreignKey="subfuncao_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="UnidadeGestora" name="Unidade Gestora" visible="true" foreignKey="unidadegestora_pk" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Data" name="Data" visible="true" foreignKey="datapagamento" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Valor" column="valor" aggregator="sum" visible="true">
     </Measure>
   </Cube>
 </Schema>

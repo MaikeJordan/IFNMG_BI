@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>fato_despesa</name>
+    <name>fato_diaria</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
     </parameters>
@@ -93,14 +94,12 @@
   <order>
   <hop> <from>Table input</from><to>Database lookup - UnidadeGestora</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values</from><to>Table output</to><enabled>Y</enabled> </hop>
-  <hop> <from>Database lookup - UnidadeGestora</from><to>Database lookup - Grupodespesa</to><enabled>Y</enabled> </hop>
-  <hop> <from>Database lookup - Grupodespesa</from><to>Database lookup - Elementodespesa</to><enabled>Y</enabled> </hop>
-  <hop> <from>Database lookup - Elementodespesa</from><to>Database lookup - Funcao</to><enabled>Y</enabled> </hop>
   <hop> <from>Database lookup - Funcao</from><to>Database lookup - Subfuncao</to><enabled>Y</enabled> </hop>
   <hop> <from>Database lookup - Subfuncao</from><to>Database lookup - Programa</to><enabled>Y</enabled> </hop>
   <hop> <from>Database lookup - Programa</from><to>Database lookup - Acao</to><enabled>Y</enabled> </hop>
   <hop> <from>Database lookup - Acao</from><to>Database lookup - Tempo</to><enabled>Y</enabled> </hop>
   <hop> <from>Database lookup - Tempo</from><to>Select values</to><enabled>Y</enabled> </hop>
+  <hop> <from>Database lookup - UnidadeGestora</from><to>Database lookup - Funcao</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Database lookup - Acao</name>
@@ -138,50 +137,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>112</xloc>
+      <xloc>608</xloc>
       <yloc>192</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Database lookup - Elementodespesa</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>IFNMG</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>public</schema>
-      <table>dim_elementodespesa</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>nomeelementodespesa</name>
-        <field>elementodespesa</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>pk_elementodespesa</name>
-        <rename>pk_elementodespesa</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>864</xloc>
-      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -216,48 +173,6 @@
       <value>
         <name>funcao_pk</name>
         <rename>funcao_pk</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>864</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Database lookup - Grupodespesa</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>IFNMG</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>public</schema>
-      <table>dim_grupodespesa</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>nomegrupodespesa</name>
-        <field>grupodespesa</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>grupodespesa_pk</name>
-        <rename>grupodespesa_pk</rename>
         <default/>
         <type>Integer</type>
       </value>
@@ -306,7 +221,7 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
+      <xloc>848</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
@@ -348,8 +263,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
-      <yloc>192</yloc>
+      <xloc>848</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -376,22 +291,22 @@
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>datapagamento</name>
+        <name>data_pagamento</name>
         <field>day_date</field>
         <condition>&#x3d;</condition>
         <name2/>
       </key>
       <value>
         <name>id</name>
-        <rename>iddevolvido</rename>
+        <rename>devolvidoid</rename>
         <default/>
         <type>Integer</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>112</xloc>
-      <yloc>304</yloc>
+      <xloc>352</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -449,23 +364,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>numerodocumento</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>valor</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>unidadegestora_pk</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>grupodespesa_pk</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>pk_elementodespesa</name>
+    <fields>      <field>        <name>unidadegestora_pk</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -485,15 +384,23 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
-      </field>      <field>        <name>iddevolvido</name>
+      </field>      <field>        <name>documentopagamento</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>valorpagamento</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>devolvidoid</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
-      <yloc>304</yloc>
+      <xloc>112</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -510,7 +417,7 @@
            <schema_name/>
            </partitioning>
     <connection>IFNMG</connection>
-    <sql>SELECT &#xa;nomeorgaosuperior,&#xa;nomeorgao,&#xa;nomeunidadegestora,&#xa;nomegrupodespesa,&#xa;nomeelementodespesa,&#xa;nomefuncao,&#xa;nomesubfuncao,&#xa;nomeprograma,&#xa;nomeacao,&#xa;nomefavorecido,&#xa;numerodocumento,&#xa;valor,&#xa;datapagamento&#xa;FROM dados</sql>
+    <sql>SELECT  &#xd;&#xa;nomeunidadegestora, &#xd;&#xa;nomefuncao, &#xd;&#xa;nomesubfuncao, &#xd;&#xa;nomeprograma, &#xd;&#xa;nomeacao,  &#xd;&#xa;nomefavorecido, &#xd;&#xa;documentopagamento,&#xd;&#xa;data_pagamento, &#xd;&#xa;valorpagamento&#xd;&#xa;FROM public.diaria&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -537,7 +444,7 @@
            </partitioning>
     <connection>IFNMG</connection>
     <schema>public</schema>
-    <table>fato_despesa</table>
+    <table>fato_diaria</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -555,23 +462,15 @@
     <fields>
         <field>
           <column_name>numerodocumento</column_name>
-          <stream_name>numerodocumento</stream_name>
+          <stream_name>documentopagamento</stream_name>
         </field>
         <field>
           <column_name>valor</column_name>
-          <stream_name>valor</stream_name>
+          <stream_name>valorpagamento</stream_name>
         </field>
         <field>
           <column_name>unidadegestora_pk</column_name>
           <stream_name>unidadegestora_pk</stream_name>
-        </field>
-        <field>
-          <column_name>grupodespesa_pk</column_name>
-          <stream_name>grupodespesa_pk</stream_name>
-        </field>
-        <field>
-          <column_name>pk_elementodespesa</column_name>
-          <stream_name>pk_elementodespesa</stream_name>
         </field>
         <field>
           <column_name>funcao_pk</column_name>
@@ -591,12 +490,12 @@
         </field>
         <field>
           <column_name>datapagamento</column_name>
-          <stream_name>iddevolvido</stream_name>
+          <stream_name>devolvidoid</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
+      <xloc>256</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
       </GUI>
